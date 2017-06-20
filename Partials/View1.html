@@ -1,0 +1,68 @@
+<div id="wrapper">
+   <!-- Sidebar -->
+   <div id="sidebar-wrapper">
+      <ul class="sidebar-nav">
+         <li class="sidebar-brand">
+            Project 2
+         </li>
+         <li>
+            <a href="#/view1">Bookmarks</a>
+         </li>
+         <li>
+            <a href="#/view2">Add</a>
+         </li>
+      </ul>
+   </div>
+   <!-- /#sidebar-wrapper -->
+   <!-- Page Content -->
+   <div id="page-content-wrapper">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-lg-12">
+               <h2>Bookmark List</h2>
+               <h3>Search</h3>
+               <input type="text" ng-model="filter.name" placeholder="search..."/>
+               <br />
+                <div id="exportable">
+            <!--bookmark table -->
+               <table>
+                  <thread>
+                     <tr>
+                        <th>Favorite</th>
+                        <th>Name </th>
+                        <th>URL </th>
+                        <th>Edit</th>
+                     </tr>
+                  </thread>
+                  <tbody>
+                      <!-- loop to filter links and a form for editing -->
+                     <tr ng-repeat="links in $storage.bookmarks | filter:filter.name">
+                        <td><input type="checkbox" ng-model="links.favorite"></td>
+                        <td>{{links.name}}</td>
+                        <td><a href="{{links.address}}">{{links.address}}</a></td>
+                        <td>
+                           <i class="icon-pencil" ng-hide="editing" ng-click="editing = true"></i>
+                           <form ng-show="editing" ng-submit="editing = false">
+                              <label>Name:</label>
+                              <input type="text" ng-model="links.name" placeholder="name..." name="name" required/>
+                              <label>URL:</label>
+                              <input type="url" ng-model="links.address" placeholder="url..." name="address" required/>
+                              <br/>
+                              <button class="btn btn-primary" type="submit">Save</button>
+                              <button class="btn btn-danger" ng-click="removeLinks($index)">Delete</button>
+                           </form>
+                        </td>
+                     </tr>
+                  </tbody>
+               </table>
+                </div>
+                <br />
+            <!-- exports bookmark table to an excel document -->
+               <button ng-click="exportData()">Export</button>
+            </div>
+         </div>
+      </div>
+   </div>
+   <!-- /#page-content-wrapper -->
+</div>
+<!-- /#wrapper -->
